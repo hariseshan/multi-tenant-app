@@ -5,7 +5,13 @@
       Logout
     </button>
   </div>
-  <div class="row g-4">
+  <div class="alert alert-warning text-center"
+       *ngIf="isUnauthorized">
+    <h5>You are unauthorized to access this location</h5>
+    <p>Please contact admin.</p>
+  </div>
+  <!-- ✅ NORMAL DASHBOARD -->
+  <div class="row g-4" *ngIf="!isUnauthorized">
     <!-- ADMIN CARD -->
     <div class="col-md-4" *ngIf="role === 'Admin'">
       <div class="card shadow text-center p-4 h-100">
@@ -24,7 +30,10 @@
                 routerLink="/admin">
           View User List
         </button>
+
       </div>
     </div>
+
   </div>
+
 </div>

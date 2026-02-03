@@ -9,12 +9,22 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
 
   role = '';
+  tenant = '';
+  isUnauthorized = false;
 
   constructor(
     private auth: AuthService,
     private router: Router
   ) {
-    this.role = this.auth.getUser().role;
+
+    const user = this.auth.getUser();
+
+    this.role = user.role;
+    this.tenant = user.tenant;
+
+    if (this.role === 'User' && this.tenant === 'tenant2') {
+      this.isUnauthorized = true;
+    }
   }
 
   logout() {
