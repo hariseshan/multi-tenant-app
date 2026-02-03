@@ -1,21 +1,30 @@
-<h2>Dashboard</h2>
-
-<button (click)="logout()">Logout</button>
-
-<div class="cards">
-
-  <div class="card" *ngIf="role === 'Admin'">
-    Admin Card (Manage Users)
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Dashboard</h3>
+    <button class="btn btn-danger" (click)="logout()">
+      Logout
+    </button>
   </div>
-
-  <div class="card">
-    User Card (View Tasks)
+  <div class="row g-4">
+    <!-- ADMIN CARD -->
+    <div class="col-md-4" *ngIf="role === 'Admin'">
+      <div class="card shadow text-center p-4 h-100">
+        <h5>Manage Users</h5>
+        <button class="btn btn-primary mt-3"
+                routerLink="/admin">
+          Open Admin Panel
+        </button>
+      </div>
+    </div>
+    <!-- USER CARD -->
+    <div class="col-md-4" *ngIf="role === 'User'">
+      <div class="card shadow text-center p-4 h-100">
+        <h5>View Users</h5>
+        <button class="btn btn-success mt-3"
+                routerLink="/admin">
+          View User List
+        </button>
+      </div>
+    </div>
   </div>
-
 </div>
-
-<br>
-
-<a routerLink="/admin" *ngIf="role === 'Admin'">
-  Go to Admin Page
-</a>

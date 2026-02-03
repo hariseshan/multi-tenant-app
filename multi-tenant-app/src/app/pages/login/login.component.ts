@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
@@ -7,29 +8,37 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  username: string = '';
-  password: string = '';
-  tenant: string = 'tenant1';
+  loginForm!: FormGroup;
+  errorMsg = '';
 
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) { }
 
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      tenant: ['', Validators.required]
+    });
+  }
+
   login() {
-    const success = this.authService.login(
-      this.username,
-      this.password,
-      this.tenant
-    );
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+    const { username, password, tenant } = this.loginForm.value;
+    const success = this.authService.login(username, password, tenant);
 
     if (success) {
       this.router.navigate(['/dashboard']);
     } else {
-      alert('Invalid username or password');
+      this.errorMsg = 'Invalid credentials';
     }
   }
 }
-

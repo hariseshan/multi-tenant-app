@@ -1,27 +1,103 @@
-<h2>User CRUD</h2>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div class="toast text-bg-success" id="successToast">
+    <div class="toast-body">
+      {{ successMsg }}
+    </div>
+  </div>
+  <div class="toast text-bg-danger" id="errorToast">
+    <div class="toast-body">
+      {{ errorMsg }}
+    </div>
+  </div>
 
-<input placeholder="Name" [(ngModel)]="name">
-<input placeholder="Email" [(ngModel)]="email">
+</div>
+<div row="3"></div>
+<div class="container mt-4">
+  <div class="card shadow mb-4" *ngIf="role === 'Admin'">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <span>{{ editId ? 'Update User' : 'Add User' }}</span>
+      <button class="btn btn-light btn-sm" (click)="goBack()">
+        ← Back
+      </button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="userForm" (ngSubmit)="save()">
+        <div class="mb-3">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Name"
+                 formControlName="name">
+          <small class="text-danger"
+                 *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid">
+            Name is required
+          </small>
+        </div>
+        <div class="mb-3">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Email (must be @gmail.com)"
+                 formControlName="email"
+                 (blur)="checkEmail()">
 
-<button (click)="save()">
-  {{editId ? 'Update' : 'Add'}}
-</button>
+          <small class="text-danger"
+                 *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
+            Must be valid Gmail address
+          </small>
+          <small class="text-danger" *ngIf="emailExists">
+            Email already exists
+          </small>
+        </div>
+        <button class="btn btn-success" type="submit"
+                [disabled]="userForm.invalid || emailExists">
+          {{ editId ? 'Update' : 'Add' }}
+        </button>
 
-<hr>
+      </form>
+    </div>
+  </div>
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <span>User List</span>
+      <button class="btn btn-light btn-sm"
+              *ngIf="role === 'User'"
+              (click)="goBack()">
+         Back
+      </button>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-bordered table-hover m-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th width="150">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users">
+            <td>{{u.name}}</td>
+            <td>{{u.email}}</td>
+            <td>
+              <button class="btn btn-sm btn-primary me-1"
+                      (click)="edit(u)"
+                      *ngIf="role === 'Admin'">
+                Edit
+              </button>
 
-<table border="1" width="100%">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Actions</th>
-  </tr>
-
-  <tr *ngFor="let u of users">
-    <td>{{u.name}}</td>
-    <td>{{u.email}}</td>
-    <td>
-      <button (click)="edit(u)">Edit</button>
-      <button (click)="delete(u.id)">Delete</button>
-    </td>
-  </tr>
-</table>
+              <button class="btn btn-sm btn-info"
+                      (click)="delete(u.id)"
+                      *ngIf="role === 'Admin'">
+                Delete
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="users.length===0">
+            <td colspan="3" class="text-center">
+              No users found
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

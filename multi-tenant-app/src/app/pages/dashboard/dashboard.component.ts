@@ -10,9 +10,10 @@ export class DashboardComponent {
 
   role = '';
 
-  constructor(private auth: AuthService,
-    private router: Router) {
-
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.role = this.auth.getUser().role;
   }
 
@@ -20,4 +21,5 @@ export class DashboardComponent {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+
 }
