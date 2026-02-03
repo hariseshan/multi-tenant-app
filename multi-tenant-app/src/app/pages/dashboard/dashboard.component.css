@@ -1,0 +1,9 @@
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #ccc;
+}

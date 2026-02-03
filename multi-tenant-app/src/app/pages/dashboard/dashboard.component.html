@@ -1,0 +1,21 @@
+<h2>Dashboard</h2>
+
+<button (click)="logout()">Logout</button>
+
+<div class="cards">
+
+  <div class="card" *ngIf="role === 'Admin'">
+    Admin Card (Manage Users)
+  </div>
+
+  <div class="card">
+    User Card (View Tasks)
+  </div>
+
+</div>
+
+<br>
+
+<a routerLink="/admin" *ngIf="role === 'Admin'">
+  Go to Admin Page
+</a>

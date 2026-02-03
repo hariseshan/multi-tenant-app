@@ -1,0 +1,19 @@
+<div class="login-container">
+
+  <h2>Login</h2>
+
+  <input type="text" placeholder="Username"
+         [(ngModel)]="username">
+
+  <input type="password" placeholder="Password"
+         [(ngModel)]="password">
+
+  <select [(ngModel)]="tenant">
+    <option value="tenant1">Tenant 1</option>
+    <option value="tenant2">Tenant 2</option>
+  </select>
+
+  <button (click)="login()">Login</button>
+
+</div>
+

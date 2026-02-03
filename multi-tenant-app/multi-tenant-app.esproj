@@ -7,4 +7,14 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\multi-tenant-app\browser\</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\core\guards\" />
+    <Folder Include="src\app\pages\" />
+    <Folder Include="src\app\shared\" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties src_4assets_4tenants_1json__JsonSchema="{" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

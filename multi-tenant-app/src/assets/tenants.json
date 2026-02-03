@@ -1,0 +1,16 @@
+{
+  "tenant1": {
+    "name": "Tenant One",
+    "logo": "logo1.png",
+    "layout": "side",
+    "primaryColor": "#1976d2",
+    "secondaryColor": "#e3f2fd"
+  },
+  "tenant2": {
+    "name": "Tenant Two",
+    "logo": "logo2.png",
+    "layout": "top",
+    "primaryColor": "#2e7d32",
+    "secondaryColor": "#e8f5e9"
+  }
+}
